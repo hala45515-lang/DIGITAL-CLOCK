@@ -1,0 +1,106 @@
+/* خلفية الصفحة */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Cairo", sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(90deg, #2b0033, #6a00b3, #b84dff, #ff6ec7);
+    background-size: 300% 300%;
+    animation: gradientMove 6s ease-in-out infinite alternate;
+  }
+  
+  /* حركة التدرج */
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  /* دوائر خفيفة في الخلفية */
+  body::before,
+  body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    filter: blur(30px);
+    z-index: 0;
+  }
+  
+  body::before {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 15%;
+    animation: float1 8s ease-in-out infinite alternate;
+  }
+  
+  body::after {
+    width: 400px;
+    height: 400px;
+    bottom: 10%;
+    right: 10%;
+    animation: float2 10s ease-in-out infinite alternate;
+  }
+  
+  @keyframes float1 {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(30px) translateX(20px); }
+  }
+  
+  @keyframes float2 {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-40px) translateX(-25px); }
+  }
+  
+  /* بطاقة الساعة */
+  .clock-container {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 50px 70px;
+    border-radius: 25px;
+    box-shadow: 0 0 40px rgba(255, 180, 255, 0.4);
+    text-align: center;
+    backdrop-filter: blur(12px);
+    animation: fadeIn 1s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1;
+  }
+  
+  /* النص الأساسي للوقت */
+  #clock {
+    font-size: 70px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 0 0 20px #c77dff, 0 0 40px #ffb3ff;
+    animation: pulse 2s infinite alternate;
+  }
+  
+  /* التاريخ واسم اليوم */
+  #date, #day {
+    font-size: 22px;
+    margin-top: 10px;
+    color: #ffe6ff;
+    letter-spacing: 1px;
+  }
+  
+  /* تأثير الظهور */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* تأثير نبض للوقت */
+  @keyframes pulse {
+    0% { text-shadow: 0 0 15px #b57bff, 0 0 30px #ff9fff; }
+    100% { text-shadow: 0 0 30px #ffc3ff, 0 0 60px #ffffff; }
+  }
