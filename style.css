@@ -1,106 +1,236 @@
-/* خلفية الصفحة */
+/* ===== Reset & base ===== */
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --cyan: #4ff3e0;
+    --violet: #a78bfa;
+    --pink: #ff7ecb;
+    --text: #eef2ff;
+    --text-dim: #9aa3c7;
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: rgba(255, 255, 255, 0.14);
+}
+
 body {
     margin: 0;
-    padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Cairo", sans-serif;
-    color: #fff;
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
     overflow: hidden;
     position: relative;
-    background: linear-gradient(90deg, #2b0033, #6a00b3, #b84dff, #ff6ec7);
-    background-size: 300% 300%;
-    animation: gradientMove 6s ease-in-out infinite alternate;
-  }
-  
-  /* حركة التدرج */
-  @keyframes gradientMove {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
-  
-  /* دوائر خفيفة في الخلفية */
-  body::before,
-  body::after {
-    content: "";
+    background: #0a0e1f;
+}
+
+/* ===== Animated background ===== */
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 30%, #131a35 0%, #0a0e1f 65%);
+}
+
+.aurora {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.07);
-    filter: blur(30px);
-    z-index: 0;
-  }
-  
-  body::before {
-    width: 300px;
-    height: 300px;
-    top: 10%;
-    left: 15%;
-    animation: float1 8s ease-in-out infinite alternate;
-  }
-  
-  body::after {
-    width: 400px;
-    height: 400px;
-    bottom: 10%;
-    right: 10%;
-    animation: float2 10s ease-in-out infinite alternate;
-  }
-  
-  @keyframes float1 {
-    0% { transform: translateY(0) translateX(0); }
-    100% { transform: translateY(30px) translateX(20px); }
-  }
-  
-  @keyframes float2 {
-    0% { transform: translateY(0) translateX(0); }
-    100% { transform: translateY(-40px) translateX(-25px); }
-  }
-  
-  /* بطاقة الساعة */
-  .clock-container {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 50px 70px;
-    border-radius: 25px;
-    box-shadow: 0 0 40px rgba(255, 180, 255, 0.4);
-    text-align: center;
-    backdrop-filter: blur(12px);
-    animation: fadeIn 1s ease-in-out;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    filter: blur(90px);
+    opacity: 0.55;
+    will-change: transform;
+}
+
+.aurora-1 {
+    width: 45vw;
+    height: 45vw;
+    top: -10%;
+    left: -10%;
+    background: var(--violet);
+    animation: drift1 16s ease-in-out infinite alternate;
+}
+
+.aurora-2 {
+    width: 40vw;
+    height: 40vw;
+    bottom: -15%;
+    right: -10%;
+    background: var(--cyan);
+    animation: drift2 18s ease-in-out infinite alternate;
+}
+
+.aurora-3 {
+    width: 30vw;
+    height: 30vw;
+    top: 40%;
+    left: 55%;
+    background: var(--pink);
+    animation: drift3 14s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 {
+    to { transform: translate(8vw, 10vh) scale(1.15); }
+}
+@keyframes drift2 {
+    to { transform: translate(-6vw, -8vh) scale(1.1); }
+}
+@keyframes drift3 {
+    to { transform: translate(-10vw, 6vh) scale(0.9); }
+}
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(circle at 50% 45%, black 10%, transparent 75%);
+}
+
+/* ===== Clock card ===== */
+.clock-container {
+    position: relative;
     z-index: 1;
-  }
-  
-  /* النص الأساسي للوقت */
-  #clock {
-    font-size: 70px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: #fff;
-    text-shadow: 0 0 20px #c77dff, 0 0 40px #ffb3ff;
-    animation: pulse 2s infinite alternate;
-  }
-  
-  /* التاريخ واسم اليوم */
-  #date, #day {
-    font-size: 22px;
-    margin-top: 10px;
-    color: #ffe6ff;
-    letter-spacing: 1px;
-  }
-  
-  /* تأثير الظهور */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 56px 68px;
+    border-radius: 28px;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    animation: fadeIn 0.9s ease-out;
+}
+
+.greeting {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+/* ===== Time display ===== */
+.time-wrapper {
+    display: flex;
+    align-items: baseline;
+}
+
+.clock {
+    font-family: "Orbitron", sans-serif;
+    font-weight: 700;
+    font-size: clamp(46px, 9vw, 92px);
+    letter-spacing: 4px;
+    line-height: 1;
+    background: linear-gradient(90deg, var(--cyan), var(--violet) 55%, var(--pink));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: sheen 6s linear infinite;
+    filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.35));
+    white-space: nowrap;
+}
+
+.clock .colon {
+    animation: blink 1s steps(1) infinite;
+    padding: 0 2px;
+}
+
+.period {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(14px, 2.2vw, 20px);
+    font-weight: 600;
+    margin-left: 10px;
+    vertical-align: super;
+    color: var(--cyan);
+    -webkit-text-fill-color: var(--cyan);
+    letter-spacing: 2px;
+}
+
+.period.hidden {
+    display: none;
+}
+
+@keyframes sheen {
+    to { background-position: 200% center; }
+}
+
+@keyframes blink {
+    50% { opacity: 0.15; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* تأثير نبض للوقت */
-  @keyframes pulse {
-    0% { text-shadow: 0 0 15px #b57bff, 0 0 30px #ff9fff; }
-    100% { text-shadow: 0 0 30px #ffc3ff, 0 0 60px #ffffff; }
-  }
+}
+
+/* ===== Day / date badges ===== */
+.info-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.badge {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ===== Format toggle ===== */
+.format-toggle {
+    margin-top: 4px;
+    padding: 8px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: var(--text-dim);
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.format-toggle:hover {
+    color: #0a0e1f;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(79, 243, 224, 0.25);
+}
+
+.format-toggle:active {
+    transform: scale(0.96);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 520px) {
+    .clock-container {
+        padding: 40px 28px;
+        border-radius: 22px;
+        gap: 16px;
+    }
+
+    .badge {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+}

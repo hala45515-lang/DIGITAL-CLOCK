@@ -3,10 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+
+    <!-- Google Fonts: Orbitron for the digits, Poppins for the UI text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
 </head>
 <body>
-    <script src="main.js"></script>
+
+    <div class="background" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="clock-container">
+        <p class="greeting" id="greeting">Hello</p>
+
+        <div class="time-wrapper">
+            <div class="clock" id="clock">
+                <span id="hours">00</span><span class="colon">:</span><span id="minutes">00</span><span class="colon">:</span><span id="seconds">00</span><span class="period" id="period">AM</span>
+            </div>
+        </div>
+
+        <div class="info-row">
+            <span class="badge" id="day">Monday</span>
+            <span class="badge" id="date">01 Jan 2026</span>
+        </div>
+
+        <button class="format-toggle" id="formatToggle" type="button" aria-label="Toggle 12/24 hour format">
+            24H
+        </button>
+    </main>
+
+    <script src="main.js" defer></script>
 </body>
 </html>
